@@ -29,28 +29,23 @@ cd Source/
 python -m grpc_tools.protoc -I./ --python_out=../Generation/Python/dolittle_timeseries_runtime_contracts/ --grpc_python_out=../Generation/Python/dolittle_timeseries_runtime_contracts/ **/*.proto
 ```
 
-5. Now we have the generated code in __Contracts.Runtime/Generation/Python/dolittle_timeseries_runtime_contracts/__
+5. Now we have the generated code in __Contracts.Runtime/Generation/Python/dolittle_timeseries_runtime_contracts/__ and then we can install it locally by writing a `setup.py` for it inside the __Contracts.Runtime/Generation/Python/dolittle_timeseries_runtime_contracs__:
 
-<!---
 ```python
 from setuptools import setup, find_namespace_packages
 
-with open('README.md') as f:
-    long_description = f.read()
-
 setup(
-  name = 'dolittle-timeseries-runtime-contracts',
-  packages = find_namespace_packages(where='Generation/Python/dolittle-timeseries-runtime-contracts'),
+  name = 'dolittle_timeseries_runtime_contracts',
+  packages = find_namespace_packages(),
   version = '1.0.0',
   license='MIT',
-  long_description=long_description,
-  long_description_content_type='text/markdown',
   author = 'Dolittle',
   author_email = 'post@dolittle.com',
   url = 'https://github.com/dolittle-timeseries/Contracts.Runtime',
   keywords = ['Dolittle', 'gRPC', 'Contracts'],
   install_requires=[
-    'protobuf3'
+    'protobuf3',
+    'protobuf'
   ],
   python_requires='>=3.3',
   classifiers=[
@@ -60,8 +55,22 @@ setup(
 )
 ```
 
-6. Package the generated python code into a wheel using the setup.py
+6. Now we have everything ready for it to be installed into your __Python.SDK__ repo so set that up first:
 ```bash
-python setup.py sdist bdist_wheel
+git clone git@github.com:dolittle-timeseries/Python.SDK.git
+cd Python.SDK
+virtualenv -p python3 env
+# target it into the generated dolittle_timeseries_contracts_runtime folder where the setup.py is
+pip install ../Contracts.Runtime/Generation/Python
 ```
--->
+
+7. Now we have everything ready for importing it into our own files inside the __Python.SDK__ like this:
+```python
+from dolittle_timeseries_runtime_contracts.Connectors import PullConnector_pb2
+
+print(PullConnector_pb2)
+print(PullConnector_pb2.PullConnector)
+puller = PullConnector_pb2.PullConnector()
+```
+
+There are still some problems with the importing etc but this is at least a starting point.
