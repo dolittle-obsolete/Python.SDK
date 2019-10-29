@@ -18,7 +18,7 @@ source env/bin/activate
 pip install grpcio grpcio-tools
 ```
 
-3. Setup the folders for generated files, this structures matches the one we use with the pipeline but it doesn't reflect the reality of installing it through `pip` or maybe it does idk this is a mess still.
+3. Setup the folders for generated files, the folder name defines the name of the imported package in python:
 ```bash
 mkdir -p Generation/Python/dolittle_timeseries_runtime_contracts
 ```
@@ -35,7 +35,8 @@ python -m grpc_tools.protoc -I./ --python_out=../Generation/Python/dolittle_time
 from setuptools import setup, find_namespace_packages
 
 setup(
-  name = 'dolittle_timeseries_runtime_contracts',
+  # this name defines the packages name for pypi
+  name = 'dolittle-timeseries-runtime-contracts',
   packages = find_namespace_packages(),
   version = '1.0.0',
   license='MIT',
