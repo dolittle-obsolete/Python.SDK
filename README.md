@@ -29,7 +29,7 @@ cd Source/
 python -m grpc_tools.protoc -I./ --python_out=../Generation/Python/dolittle_timeseries_runtime_contracts/ --grpc_python_out=../Generation/Python/dolittle_timeseries_runtime_contracts/ **/*.proto
 ```
 
-5. Now we have the generated code in __Contracts.Runtime/Generation/Python/dolittle_timeseries_runtime_contracts/__ and then we can install it locally by writing a `setup.py` for it inside the __Contracts.Runtime/Generation/Python/dolittle_timeseries_runtime_contracs__:
+5. Now we have the generated code in __Contracts.Runtime/Generation/Python/dolittle_timeseries_runtime_contracts/__ and then we can install it locally by writing a `setup.py` for it inside the __Contracts.Runtime/Generation/Python/__:
 
 ```python
 from setuptools import setup, find_namespace_packages
@@ -61,6 +61,7 @@ setup(
 git clone git@github.com:dolittle-timeseries/Python.SDK.git
 cd Python.SDK
 virtualenv -p python3 env
+source env/bin/activate
 # target it into the generated dolittle_timeseries_contracts_runtime folder where the setup.py is
 pip install ../Contracts.Runtime/Generation/Python
 ```
